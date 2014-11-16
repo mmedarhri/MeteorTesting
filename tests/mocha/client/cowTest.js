@@ -23,12 +23,31 @@ describe("Cow", function() {
       }).to.throw(Error);
     });
 
+  });
+
     it("should greet passed target", function() {
       var greetings = (new Cow("Kate")).greets("Baby");
-      expect(greetings).to.equal("Kate greets Baby");
+      expect(greetings).to.equal("Kate greets Baby !");
     });
   });
-});
+
+
+    describe("#lateGreets", function() {
+      it("should pass an error if no target is passed", function(done) {
+        (new Cow()).lateGreets(null, function(err, greetings) {
+          expect(err).to.be.an.instanceof(Error);
+          done();
+        });
+      });
+
+      it("should greet passed target after one second", function(done) {
+        (new Cow("Kate")).lateGreets("Baby", function(err, greetings) {
+          expect(greetings).to.equal("Kate greets Baby");
+          done();
+        });
+      });
+    });
+
 
   });
 }
